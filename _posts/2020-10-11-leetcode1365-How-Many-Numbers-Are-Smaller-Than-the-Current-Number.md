@@ -46,7 +46,7 @@ vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
 		return ans;
 }
 ```
-3. 
+3. bucket记数
 ```cpp
 vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
 		vector<int> cnt(101);
