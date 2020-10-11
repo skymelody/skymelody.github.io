@@ -1,0 +1,33 @@
+---
+layout:     post
+title:      1512. Number of Good Pairs
+date:       2020-10-11
+author:     skymelody
+header-img: img/the-first.png
+catalog: false 
+tags:
+    - leetcode
+---
+
+Given an array of integers nums.
+A pair (i,j) is called good if nums[i] == nums[j] and i < j.
+Return the number of good pairs.
+
+Examples:
+```
+Input: nums = [1,2,3,1,1,3]
+Output: 4
+Explanation: There are 4 good pairs (0,3), (0,4), (3,4), (2,5) 0-indexed.
+```
+
+思路：使用map保存每一个数字出现的次数，之后遇到相同的数字累加map中的记录即可。
+```cpp
+int numIdenticalPairs(vector<int>& nums) {
+		int ans = 0;
+		unordered_map<int, int> rec;
+		for (int i = 0; i < nums.size(); ++i) {
+				ans += rec[nums[i]]++;
+		}
+		return ans;
+}
+```
