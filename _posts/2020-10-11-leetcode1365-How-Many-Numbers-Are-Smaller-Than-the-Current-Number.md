@@ -1,0 +1,68 @@
+---
+layout:     post
+title:      1365. How Many Numbers Are Smaller Than the Current Number
+date:       2020-10-11
+author:     skymelody
+header-img: img/the-first.png
+catalog: false 
+tags:
+    - leetcode
+---
+Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+Return the answer in an array.
+
+思路：
+1. 暴力法
+```cpp
+vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+		vector<int> ans(nums.size());
+		for (int i = 0; i < nums.size(); ++i) {
+				int cnt = 0;
+				for (int j = 0; j < nums.size(); ++j) {
+						if (i != j && nums[j] < nums[i]) {
+								++cnt;
+						}
+				}
+				ans[i] = cnt;
+		}
+		return ans;
+}
+```
+2. 排序
+```cpp
+vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+		vector<int> ans = nums;
+		sort(nums.begin(), nums.end());
+		unordered_map<int, int> mp;
+		mp[ans[0]] = 0;
+		for (int i = 1; i < nums.size(); ++i) {
+				if (nums[i] != nums[i-1]) {
+						mp[nums[i]] = i;
+				}
+		}
+		for (int i = 0; i < ans.size(); ++i) {
+				ans[i] = mp[ans[i]];
+		}
+		return ans;
+}
+```
+3. 
+```cpp
+vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+		vector<int> cnt(101);
+		for (int val : nums) {
+				++cnt[val];
+		}
+		for (int i = 1; i < cnt.size(); ++i) {
+				cnt[i] += cnt[i-1];
+		}
+		vector<int> ans(nums.size());
+		for (int i = 0; i < nums.size(); ++i) {
+				int idx = nums[i]-1;
+				if (idx >= 0) {
+						ans[i] = cnt[idx];
+				}
+		}
+		return ans;
+}
+```
